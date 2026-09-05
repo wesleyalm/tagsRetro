@@ -60,10 +60,10 @@
         .nome-jogo {
             color: #ffcc00;
             font-size: 14px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             line-height: 1.5;
             text-shadow: 2px 2px 0px #000000;
-            padding: 0 15px; /* Adicionado um pequeno espaçamento lateral caso o nome ocupe duas linhas no celular */
+            padding: 0 15px;
         }
         .botao-jogar {
             background-color: #4CAF50;
@@ -75,10 +75,28 @@
             cursor: pointer;
             text-transform: uppercase;
             box-shadow: 0px 4px 0px #fff;
+            margin-bottom: 25px;
         }
         .botao-jogar:active {
             box-shadow: 0px 0px 0px #fff;
             transform: translateY(4px);
+        }
+        
+        .botao-encomenda {
+            background-color: #ff9900;
+            color: #000000;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0px 3px 0px #fff;
+        }
+        .botao-encomenda:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
         }
     </style>
 </head>
@@ -88,10 +106,11 @@
         <img src="https://wesleyalm.github.io/tagsmwfix/logo%20mwfix.png" alt="Logo MWfix" class="logo">
         <div class="texto-retro">RETRÔ</div>
         
-        <!-- Nome do jogo atualizado -->
         <div class="nome-jogo">ZELDA: A LINK TO THE PAST</div>
         
         <button class="botao-jogar" onclick="iniciarJogo()">START</button>
+        
+        <a href="https://www.instagram.com/_mwfix/" target="_blank" class="botao-encomenda">ENCOMENDE SEU JOGO</a>
     </div>
 
     <div id="game"></div>
