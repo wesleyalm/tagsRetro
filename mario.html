@@ -28,8 +28,8 @@
             width: 100%;
             height: 100%;
             background-color: #1a1a1a;
-            background-image: url('imagemfundo.jpg'); /* Puxa a sua imagem de fundo */
-            background-size: cover; /* Faz a imagem preencher a tela toda */
+            background-image: url('imagemfundo.jpg');
+            background-size: cover;
             background-position: center;
             display: flex;
             flex-direction: column;
@@ -41,28 +41,29 @@
         }
         .logo {
             width: 160px;
-            height: 160px; /* Altura igual à largura para o círculo perfeito */
-            border-radius: 50%; /* Arredonda a imagem */
+            height: 160px;
+            border-radius: 50%;
             object-fit: cover;
             margin-bottom: 0;
-            border: 3px solid #ffffff; /* Borda branca para destacar no fundo */
+            border: 3px solid #ffffff;
             z-index: 1;
         }
         .texto-retro {
-            color: #0066ff; /* Azul */
+            color: #0066ff;
             font-size: 22px;
-            margin-top: -15px; /* Puxa para cima, sobrepondo a logo */
+            margin-top: -15px;
             margin-bottom: 40px;
             letter-spacing: 2px;
-            z-index: 2; /* Garante que o texto fique na frente da logo */
-            text-shadow: 2px 2px 0px #000000, -1px -1px 0px #ffffff; /* Sombra para leitura na imagem de fundo */
+            z-index: 2;
+            text-shadow: 2px 2px 0px #000000, -1px -1px 0px #ffffff;
         }
         .nome-jogo {
             color: #ffcc00;
             font-size: 14px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             line-height: 1.5;
-            text-shadow: 2px 2px 0px #000000; /* Sombra para leitura */
+            text-shadow: 2px 2px 0px #000000;
+            padding: 0 15px;
         }
         .botao-jogar {
             background-color: #4CAF50;
@@ -74,10 +75,29 @@
             cursor: pointer;
             text-transform: uppercase;
             box-shadow: 0px 4px 0px #fff;
+            margin-bottom: 25px;
         }
         .botao-jogar:active {
             box-shadow: 0px 0px 0px #fff;
             transform: translateY(4px);
+        }
+
+        /* Novo botão do Instagram */
+        .botao-encomenda {
+            background-color: #ff9900;
+            color: #000000;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0px 3px 0px #fff;
+        }
+        .botao-encomenda:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
         }
     </style>
 </head>
@@ -88,6 +108,9 @@
         <div class="texto-retro">RETRÔ</div>
         <div class="nome-jogo">SUPER MARIO WORLD</div>
         <button class="botao-jogar" onclick="iniciarJogo()">START</button>
+        
+        <!-- Botão com o link para o Instagram -->
+        <a href="https://www.instagram.com/_mwfix/" target="_blank" class="botao-encomenda">ENCOMENDE SEU JOGO</a>
     </div>
 
     <div id="game"></div>
