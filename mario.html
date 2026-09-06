@@ -81,8 +81,7 @@
             box-shadow: 0px 0px 0px #fff;
             transform: translateY(4px);
         }
-
-        /* Novo botão do Instagram */
+        
         .botao-encomenda {
             background-color: #ff9900;
             color: #000000;
@@ -99,6 +98,81 @@
             box-shadow: 0px 0px 0px #fff;
             transform: translateY(3px);
         }
+
+        /* ESTILOS DO MODAL (JANELINHA) DE ENCOMENDA */
+        #modal-encomenda {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-conteudo {
+            background-color: #1a1a1a;
+            border: 4px solid #0066ff;
+            padding: 20px;
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .modal-titulo {
+            color: #ffcc00;
+            font-size: 12px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #texto-jogos {
+            width: 90%;
+            height: 100px;
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px;
+            font-family: monospace; /* Fonte mais fácil de ler ao digitar */
+            font-size: 14px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+        .botao-enviar-wpp {
+            background-color: #25D366; /* Cor do WhatsApp */
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 3px 0px #fff;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .botao-enviar-wpp:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
+        .botao-fechar-modal {
+            background-color: #ff0000;
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 3px 0px #fff;
+            width: 100%;
+        }
+        .botao-fechar-modal:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
     </style>
 </head>
 <body>
@@ -109,17 +183,60 @@
         <div class="nome-jogo">SUPER MARIO WORLD</div>
         <button class="botao-jogar" onclick="iniciarJogo()">START</button>
         
-        <!-- Botão com o link para o Instagram -->
-        <a href="https://www.instagram.com/_mwfix/" target="_blank" class="botao-encomenda">ENCOMENDE SEU JOGO</a>
+        <!-- O botão agora chama uma função para abrir a janelinha -->
+        <button class="botao-encomenda" onclick="abrirModal()">ENCOMENDE SEU JOGO</button>
+    </div>
+
+    <!-- JANELINHA DO PEDIDO (Fica escondida até clicar no botão) -->
+    <div id="modal-encomenda">
+        <div class="modal-conteudo">
+            <div class="modal-titulo">QUAIS JOGOS VOCÊ DESEJA?</div>
+            <textarea id="texto-jogos" placeholder="Digite os nomes aqui..."></textarea>
+            <button class="botao-enviar-wpp" onclick="enviarWhatsApp()">ENVIAR PEDIDO</button>
+            <button class="botao-fechar-modal" onclick="fecharModal()">CANCELAR</button>
+        </div>
     </div>
 
     <div id="game"></div>
 
     <script>
+        // Função para iniciar o jogo (esconde a tela inicial)
         function iniciarJogo() {
             document.getElementById('tela-inicial').style.display = 'none';
         }
 
+        // Funções da janelinha de encomenda
+        function abrirModal() {
+            document.getElementById('modal-encomenda').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal-encomenda').style.display = 'none';
+            document.getElementById('texto-jogos').value = ''; // Limpa o texto ao fechar
+        }
+
+        function enviarWhatsApp() {
+            var jogosDigitados = document.getElementById('texto-jogos').value;
+            
+            // Só envia se a pessoa digitou alguma coisa
+            if(jogosDigitados.trim() !== "") {
+                var numero = "5588994694118"; // Seu número configurado
+                var mensagem = "olá, gostaria dos seguintes jogos:\n\n" + jogosDigitados;
+                
+                // Transforma o texto para o formato de link do WhatsApp
+                var urlWhatsApp = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+                
+                // Abre o WhatsApp em uma nova aba
+                window.open(urlWhatsApp, "_blank");
+                
+                // Opcional: fechar o modal depois de enviar
+                fecharModal();
+            } else {
+                alert("Por favor, digite pelo menos um jogo.");
+            }
+        }
+
+        // Configuração do Emulador
         EJS_core = 'snes'; 
         EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
         EJS_player = '#game';
