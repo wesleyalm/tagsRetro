@@ -98,6 +98,81 @@
             box-shadow: 0px 0px 0px #fff;
             transform: translateY(3px);
         }
+
+        /* ESTILOS DO MODAL DE ENCOMENDA */
+        #modal-encomenda {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-conteudo {
+            background-color: #1a1a1a;
+            border: 4px solid #0066ff;
+            padding: 20px;
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .modal-titulo {
+            color: #ffcc00;
+            font-size: 12px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #texto-jogos {
+            width: 90%;
+            height: 100px;
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+        .botao-enviar-wpp {
+            background-color: #25D366;
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 3px 0px #fff;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .botao-enviar-wpp:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
+        .botao-fechar-modal {
+            background-color: #ff0000;
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 3px 0px #fff;
+            width: 100%;
+        }
+        .botao-fechar-modal:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
     </style>
 </head>
 <body>
@@ -105,12 +180,20 @@
     <div id="tela-inicial">
         <img src="https://wesleyalm.github.io/tagsmwfix/logo%20mwfix.png" alt="Logo MWfix" class="logo">
         <div class="texto-retro">RETRÔ</div>
-        
         <div class="nome-jogo">ZELDA: A LINK TO THE PAST</div>
-        
         <button class="botao-jogar" onclick="iniciarJogo()">START</button>
         
-        <a href="https://www.instagram.com/_mwfix/" target="_blank" class="botao-encomenda">ENCOMENDE SEU JOGO</a>
+        <button class="botao-encomenda" onclick="abrirModal()">ENCOMENDE SEU JOGO</button>
+    </div>
+
+    <!-- JANELINHA DO PEDIDO -->
+    <div id="modal-encomenda">
+        <div class="modal-conteudo">
+            <div class="modal-titulo">QUAIS JOGOS VOCÊ DESEJA?</div>
+            <textarea id="texto-jogos" placeholder="Digite os nomes aqui..."></textarea>
+            <button class="botao-enviar-wpp" onclick="enviarWhatsApp()">ENVIAR PEDIDO</button>
+            <button class="botao-fechar-modal" onclick="fecharModal()">CANCELAR</button>
+        </div>
     </div>
 
     <div id="game"></div>
@@ -118,6 +201,30 @@
     <script>
         function iniciarJogo() {
             document.getElementById('tela-inicial').style.display = 'none';
+        }
+
+        function abrirModal() {
+            document.getElementById('modal-encomenda').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal-encomenda').style.display = 'none';
+            document.getElementById('texto-jogos').value = '';
+        }
+
+        function enviarWhatsApp() {
+            var jogosDigitados = document.getElementById('texto-jogos').value;
+            
+            if(jogosDigitados.trim() !== "") {
+                var numero = "5588994694118";
+                var mensagem = "olá, gostaria dos seguintes jogos:\n\n" + jogosDigitados;
+                var urlWhatsApp = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+                
+                window.open(urlWhatsApp, "_blank");
+                fecharModal();
+            } else {
+                alert("Por favor, digite pelo menos um jogo.");
+            }
         }
 
         EJS_core = 'snes'; 
