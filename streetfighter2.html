@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MWfix Retrô</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000;
+            overflow: hidden;
+        }
+        #game {
+            width: 100%;
+            height: 100%;
+        }
+        
+        #tela-inicial {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a1a1a;
+            background-image: url('imagemfundo.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+        }
+        .logo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 0;
+            border: 3px solid #ffffff;
+            z-index: 1;
+        }
+        .texto-retro {
+            color: #0066ff;
+            font-size: 22px;
+            margin-top: -15px;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            z-index: 2;
+            text-shadow: 2px 2px 0px #000000, -1px -1px 0px #ffffff;
+        }
+        .nome-jogo {
+            color: #ffcc00;
+            font-size: 14px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+            text-shadow: 2px 2px 0px #000000;
+            padding: 0 15px;
+        }
+        .botao-jogar {
+            background-color: #4CAF50;
+            color: white;
+            border: 4px solid #ffffff;
+            padding: 15px 25px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 4px 0px #fff;
+            margin-bottom: 25px;
+        }
+        .botao-jogar:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(4px);
+        }
+        
+        .botao-encomenda {
+            background-color: #ff9900;
+            color: #000000;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0px 3px 0px #fff;
+        }
+        .botao-encomenda:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
+
+        /* ESTILOS DO MODAL DE ENCOMENDA */
+        #modal-encomenda {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-conteudo {
+            background-color: #1a1a1a;
+            border: 4px solid #0066ff;
+            padding: 20px;
+            width: 85%;
+            max-width: 400px;
+            text-align: center;
+            font-family: 'Press Start 2P', cursive;
+        }
+        .modal-titulo {
+            color: #ffcc00;
+            font-size: 12px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        #texto-jogos {
+            width: 90%;
+            height: 100px;
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #fff;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+        .botao-enviar-wpp {
+            background-color: #25D366;
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 3px 0px #fff;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .botao-enviar-wpp:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
+        .botao-fechar-modal {
+            background-color: #ff0000;
+            color: white;
+            border: 3px solid #ffffff;
+            padding: 10px 15px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0px 3px 0px #fff;
+            width: 100%;
+        }
+        .botao-fechar-modal:active {
+            box-shadow: 0px 0px 0px #fff;
+            transform: translateY(3px);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tela-inicial">
+        <img src="https://wesleyalm.github.io/tagsmwfix/logo%20mwfix.png" alt="Logo MWfix" class="logo">
+        <div class="texto-retro">RETRÔ</div>
+        <div class="nome-jogo">STREET FIGHTER II</div>
+        <button class="botao-jogar" onclick="iniciarJogo()">START</button>
+        
+        <button class="botao-encomenda" onclick="abrirModal()">ENCOMENDE SEU JOGO</button>
+    </div>
+
+    <!-- JANELINHA DO PEDIDO -->
+    <div id="modal-encomenda">
+        <div class="modal-conteudo">
+            <div class="modal-titulo">QUAIS JOGOS VOCÊ DESEJA?</div>
+            <textarea id="texto-jogos" placeholder="Digite os nomes aqui..."></textarea>
+            <button class="botao-enviar-wpp" onclick="enviarWhatsApp()">ENVIAR PEDIDO</button>
+            <button class="botao-fechar-modal" onclick="fecharModal()">CANCELAR</button>
+        </div>
+    </div>
+
+    <div id="game"></div>
+
+    <script>
+        function iniciarJogo() {
+            if (!romBase64.trim()) {
+                alert('Esta página ainda não tem um jogo configurado.');
+                return;
+            }
+            document.getElementById('tela-inicial').style.display = 'none';
+        }
+
+        function abrirModal() {
+            document.getElementById('modal-encomenda').style.display = 'flex';
+        }
+
+        function fecharModal() {
+            document.getElementById('modal-encomenda').style.display = 'none';
+            document.getElementById('texto-jogos').value = '';
+        }
+
+        function enviarWhatsApp() {
+            var jogosDigitados = document.getElementById('texto-jogos').value;
+            
+            if(jogosDigitados.trim() !== "") {
+                var numero = "5588994694118";
+                var mensagem = "olá, gostaria dos seguintes jogos:\n\n" + jogosDigitados;
+                var urlWhatsApp = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+                
+                window.open(urlWhatsApp, "_blank");
+                fecharModal();
+            } else {
+                alert("Por favor, digite pelo menos um jogo.");
+            }
+        }
+
+        EJS_core = 'snes'; 
+        EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/'; 
+        EJS_player = '#game';
+        // Preencha apenas com conteúdo que você tenha autorização para distribuir.
+        // Campo deixado vazio propositalmente:
+        var romBase64 = '';
+
+        if (romBase64.trim()) {
+            EJS_gameUrl = 'data:application/octet-stream;base64,' + romBase64;
+            const loader = document.createElement('script');
+            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(loader);
+        }
+    </script>
+
+</body>
+</html>
